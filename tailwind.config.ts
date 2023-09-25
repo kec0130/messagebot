@@ -12,6 +12,9 @@ const config: Config = {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
         'gradient-conic': 'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
       },
+      boxShadow: {
+        up: '0 -2px 4px 0px rgba(60, 64, 67, 0.15)',
+      },
     },
   },
   plugins: [require('daisyui')],
