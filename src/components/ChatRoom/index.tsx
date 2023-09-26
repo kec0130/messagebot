@@ -11,22 +11,35 @@ const ChatRoom = () => {
   const [value, setValue] = useState('');
   const [messages, setMessages] = useState<IMessage[]>([{ from: 'bot', content: QUESTIONS[0] }]);
   const [params, setParams] = useState<PromptParams>(INITIAL_PARAMS);
-
   const bottomRef = useRef<HTMLDivElement>(null);
+
+  const getNextMessage = (inputValue: string, nextMessage: string) => {
+    setMessages((prev) => [
+      ...prev,
+      { from: 'user', content: inputValue },
+      { from: 'bot', content: nextMessage },
+    ]);
+    setValue('');
+  };
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const inputValue = value.trim();
     if (!inputValue || currentStep === PARAM_KEYS.length) return;
 
-    setMessages((prev) => [
-      ...prev,
-      { from: 'user', content: inputValue },
-      { from: 'bot', content: QUESTIONS[currentStep + 1] },
-    ]);
+    if (inputValue.length > 8) {
+      getNextMessage(inputValue, '8자 이내로 입력해주세요.');
+      return;
+    }
+
+    if (currentStep === PARAM_KEYS.length - 1 && inputValue !== '반말' && inputValue !== '존댓말') {
+      getNextMessage(inputValue, '"반말" 또는 "존댓말" 중 하나를 입력해주세요.');
+      return;
+    }
+
+    getNextMessage(inputValue, QUESTIONS[currentStep + 1]);
     setParams((prev) => ({ ...prev, [PARAM_KEYS[currentStep]]: inputValue }));
     setCurrentStep((prev) => prev + 1);
-    setValue('');
   };
 
   const convertDate = (date: Date) => {
@@ -53,8 +66,8 @@ const ChatRoom = () => {
         </div>
 
         <Message from="bot" content={WELCOME} />
-        {messages.map((message) => (
-          <Message key={message.content} from={message.from} content={message.content} />
+        {messages.map((message, index) => (
+          <Message key={index} from={message.from} content={message.content} delay />
         ))}
         <div ref={bottomRef} />
       </main>
