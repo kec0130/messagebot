@@ -5,6 +5,7 @@ import { INITIAL_PARAMS, PARAM_KEYS, QUESTIONS, WELCOME } from '@/constants/mess
 import { IMessage, PromptParams } from '@/types/message';
 import Message from './Message';
 import Input from './Input';
+import { generateMessages } from '@/services/messages';
 
 const ChatRoom = () => {
   const [currentStep, setCurrentStep] = useState(0);
@@ -25,15 +26,28 @@ const ChatRoom = () => {
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const inputValue = value.trim();
-    if (!inputValue || currentStep === PARAM_KEYS.length) return;
+    if (!inputValue) return;
 
     if (inputValue.length > 8) {
       getNextMessage(inputValue, '8자 이내로 입력해주세요.');
       return;
     }
 
-    if (currentStep === PARAM_KEYS.length - 1 && inputValue !== '반말' && inputValue !== '존댓말') {
-      getNextMessage(inputValue, '"반말" 또는 "존댓말" 중 하나를 입력해주세요.');
+    if (currentStep === PARAM_KEYS.length - 1) {
+      if (inputValue !== '반말' && inputValue !== '존댓말') {
+        getNextMessage(inputValue, '"반말" 또는 "존댓말" 중 하나를 입력해주세요.');
+        return;
+      }
+
+      const newParams = {
+        ...params,
+        [PARAM_KEYS[currentStep]]: inputValue,
+      };
+
+      setParams(newParams);
+      generateMessages(newParams).then((res) => {
+        console.log(res);
+      });
       return;
     }
 
