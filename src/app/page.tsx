@@ -77,7 +77,7 @@ export default function Home() {
           {convertDate(new Date())}
         </div>
 
-        <div className="chat chat-start py-2">
+        <div className="chat chat-start py-2 animate-fadeIn">
           <div className="chat-image avatar">
             <div className="w-10 h-10 rounded-full">
               <Image src="/images/avatar.png" alt="avatar" width={40} height={40} />
@@ -89,16 +89,17 @@ export default function Home() {
 
         {messages.map((message) =>
           message.from === 'bot' ? (
-            <div key={message.content}>
-              <div className="chat chat-start py-2 whitespace-pre-line">
-                <div className="chat-image avatar">
-                  <div className="w-10 h-10 rounded-full">
-                    <Image src="/images/avatar.png" alt="avatar" width={40} height={40} />
-                  </div>
+            <div
+              className="chat chat-start py-2 whitespace-pre-line animate-fadeInDelay"
+              key={message.content}
+            >
+              <div className="chat-image avatar">
+                <div className="w-10 h-10 rounded-full">
+                  <Image src="/images/avatar.png" alt="avatar" width={40} height={40} />
                 </div>
-                <div className="chat-header">메시지봇</div>
-                <div className="chat-bubble">{message.content}</div>
               </div>
+              <div className="chat-header">메시지봇</div>
+              <div className="chat-bubble">{message.content}</div>
             </div>
           ) : (
             <div className="chat chat-end py-2" key={message.content}>

@@ -15,6 +15,22 @@ const config: Config = {
       boxShadow: {
         up: '0 -2px 4px 0px rgba(60, 64, 67, 0.15)',
       },
+      keyframes: {
+        fadeIn: {
+          '0%': {
+            transform: 'translateY(10px)',
+            opacity: '0',
+          },
+          '100%': {
+            transform: 'translateY(0)',
+            opacity: '1',
+          },
+        },
+      },
+      animation: {
+        fadeIn: 'fadeIn 0.3s ease-in-out',
+        fadeInDelay: 'fadeIn 0.3s ease-in-out 0.3s backwards',
+      },
     },
   },
   plugins: [require('daisyui')],
