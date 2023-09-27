@@ -3,6 +3,7 @@ import { PromptParams } from '@/types/message';
 
 const api = axios.create({
   baseURL: 'http://127.0.0.1:8000',
+  timeout: 1000 * 30,
 });
 
 export const generateMessages = async (params: PromptParams) => {

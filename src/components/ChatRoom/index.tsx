@@ -6,27 +6,44 @@ import { IMessage, PromptParams } from '@/types/message';
 import { generateMessages } from '@/services/messages';
 import Message from './Message';
 import Input from './Input';
+import ControlButtons from './ControlButtons';
 
 const ChatRoom = () => {
   const [currentStep, setCurrentStep] = useState(0);
   const [value, setValue] = useState('');
   const [messages, setMessages] = useState<IMessage[]>([{ from: 'bot', content: QUESTIONS[0] }]);
   const [params, setParams] = useState<PromptParams>(INITIAL_PARAMS);
+  const [isInputDisabled, setIsInputDisabled] = useState(false);
   const bottomRef = useRef<HTMLDivElement>(null);
 
-  const getNextMessage = (inputValue: string, nextMessage: string) => {
-    setMessages((prev) => [
-      ...prev,
-      { from: 'user', content: inputValue },
-      { from: 'bot', content: nextMessage },
-    ]);
+  const getNextMessage = (user: string | null, bot: string) => {
+    const newMessages: IMessage[] = user
+      ? [
+          { from: 'user', content: user },
+          { from: 'bot', content: bot },
+        ]
+      : [{ from: 'bot', content: bot }];
+
+    setMessages((prev) => [...prev, ...newMessages]);
     setValue('');
   };
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const showGeneratedMessages = async (params: PromptParams) => {
+    const res = await generateMessages(params);
+    const newMessages = res.map<IMessage>((message) => ({
+      from: 'bot',
+      content: message.slice(3),
+      copyId: message.slice(0, 1),
+    }));
+
+    setMessages((prev) => [...prev, ...newMessages]);
+    setCurrentStep((prev) => prev + 1);
+  };
+
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const inputValue = value.trim();
-    if (!inputValue) return;
+    if (!inputValue || currentStep === PARAM_KEYS.length) return;
 
     if (inputValue.length > 8) {
       getNextMessage(inputValue, '8자 이내로 입력해주세요.');
@@ -39,27 +56,32 @@ const ChatRoom = () => {
         return;
       }
 
-      const newParams = {
-        ...params,
-        [PARAM_KEYS[currentStep]]: inputValue,
-      };
-
+      const newParams = { ...params, [PARAM_KEYS[currentStep]]: inputValue };
       setParams(newParams);
+      setIsInputDisabled(true);
       getNextMessage(inputValue, '메시지를 생성하는 중입니다. 잠시만 기다려주세요.');
-      generateMessages(newParams).then((res) => {
-        const newMessages = res.map<IMessage>((message) => ({
-          from: 'bot',
-          content: message.slice(3),
-          copyId: message.slice(0, 1),
-        }));
-        setMessages((prev) => [...prev, ...newMessages]);
-      });
+      await showGeneratedMessages(newParams);
       return;
     }
 
-    getNextMessage(inputValue, QUESTIONS[currentStep + 1]);
-    setParams((prev) => ({ ...prev, [PARAM_KEYS[currentStep]]: inputValue }));
+    setParams((prev) => ({
+      ...prev,
+      [PARAM_KEYS[currentStep]]: currentStep === 1 && inputValue === '0' ? '' : inputValue,
+    }));
     setCurrentStep((prev) => prev + 1);
+    getNextMessage(inputValue, QUESTIONS[currentStep + 1]);
+  };
+
+  const handleReplayClick = async () => {
+    setCurrentStep((prev) => prev - 1);
+    getNextMessage(null, '메시지를 생성하는 중입니다. 잠시만 기다려주세요.');
+    await showGeneratedMessages(params);
+  };
+
+  const handleRestartClick = () => {
+    setCurrentStep(0);
+    setIsInputDisabled(false);
+    getNextMessage(null, QUESTIONS[0]);
   };
 
   const convertDate = (date: Date) => {
@@ -95,10 +117,23 @@ const ChatRoom = () => {
             delay
           />
         ))}
+
+        {currentStep === PARAM_KEYS.length && (
+          <ControlButtons
+            handleReplayClick={handleReplayClick}
+            handleRestartClick={handleRestartClick}
+          />
+        )}
+
         <div ref={bottomRef} />
       </main>
 
-      <Input value={value} setValue={setValue} handleSubmit={handleSubmit} />
+      <Input
+        value={value}
+        setValue={setValue}
+        handleSubmit={handleSubmit}
+        disabled={isInputDisabled}
+      />
     </>
   );
 };

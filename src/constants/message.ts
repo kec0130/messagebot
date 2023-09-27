@@ -1,6 +1,6 @@
 import { PromptParams } from '@/types/message';
 
-export const WELCOME = '안녕하세요! 소중한 사람들에게 따뜻한 인사를 건네는 메시지봇이에요.';
+export const WELCOME = '안녕하세요! 소중한 사람들에게 따뜻한 인사를 전하는 메시지봇이에요.';
 
 export const QUESTIONS = [
   '누구에게 메시지를 보내실 건가요?\n예) 엄마, 친구, 아는 언니, 학교 선배, 직장 동료',

@@ -5,9 +5,10 @@ interface Props {
   value: string;
   setValue: Dispatch<SetStateAction<string>>;
   handleSubmit: (e: FormEvent<HTMLFormElement>) => void;
+  disabled?: boolean;
 }
 
-const Input = ({ value, setValue, handleSubmit }: Props) => {
+const Input = ({ value, setValue, handleSubmit, disabled }: Props) => {
   return (
     <div className="fixed z-10 bottom-0 left-0 right-0 max-w-lg mx-auto p-2 bg-sky-100 shadow-up">
       <form onSubmit={handleSubmit}>
@@ -17,6 +18,7 @@ const Input = ({ value, setValue, handleSubmit }: Props) => {
           className="w-full h-11 rounded-full px-4"
           value={value}
           onChange={(e) => setValue(e.target.value)}
+          disabled={disabled}
         />
         <button
           type="submit"
