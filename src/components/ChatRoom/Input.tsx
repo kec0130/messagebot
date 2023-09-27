@@ -1,4 +1,5 @@
 import { Dispatch, FormEvent, SetStateAction } from 'react';
+import { SendIcon } from '../../../public/icons';
 
 interface Props {
   value: string;
@@ -21,15 +22,7 @@ const Input = ({ value, setValue, handleSubmit }: Props) => {
           type="submit"
           className="absolute right-2 top-1/2 transform -translate-y-1/2 -translate-x-1 bg-sky-500 rounded-full w-9 h-9 flex justify-center items-center"
         >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            height="24"
-            viewBox="0 -960 960 960"
-            width="24"
-            className="fill-white"
-          >
-            <path d="M120-160v-240l320-80-320-80v-240l760 320-760 320Z" />
-          </svg>
+          <SendIcon className="fill-white" />
         </button>
       </form>
     </div>
