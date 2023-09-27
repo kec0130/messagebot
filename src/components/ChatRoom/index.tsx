@@ -3,7 +3,7 @@
 import { FormEvent, useEffect, useRef, useState } from 'react';
 import { INITIAL_PARAMS, PARAM_KEYS, QUESTIONS, WELCOME } from '@/constants/message';
 import { IMessage, PromptParams } from '@/types/message';
-import { generateMessages } from '@/services/messages';
+import { generateStream } from '@/services/messages';
 import Message from './Message';
 import Input from './Input';
 import ControlButtons from './ControlButtons';
@@ -29,15 +29,29 @@ const ChatRoom = () => {
   };
 
   const showGeneratedMessages = async (params: PromptParams) => {
-    const res = await generateMessages(params);
-    const newMessages = res.map<IMessage>((message) => ({
-      from: 'bot',
-      content: message.slice(3),
-      copyId: message.slice(0, 1),
-    }));
-
-    setMessages((prev) => [...prev, ...newMessages]);
     setCurrentStep((prev) => prev + 1);
+    const stream = await generateStream(params);
+    if (!stream) return;
+
+    const reader = stream.getReader();
+    const decoder = new TextDecoder();
+    const newMessages = [...messages];
+    let text = '';
+
+    while (true) {
+      const { value, done } = await reader.read();
+      if (done) {
+        break;
+      }
+
+      const decodedChunk = decoder.decode(value, { stream: true });
+      text += decodedChunk;
+      newMessages.splice(newMessages.length - 1, 1, {
+        from: 'bot',
+        content: text,
+      });
+      setMessages(newMessages);
+    }
   };
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
