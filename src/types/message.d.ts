@@ -8,4 +8,5 @@ export interface PromptParams {
 export interface IMessage {
   from: 'bot' | 'user';
   content: string;
+  copyId?: string;
 }

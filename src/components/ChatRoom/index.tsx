@@ -3,9 +3,9 @@
 import { FormEvent, useEffect, useRef, useState } from 'react';
 import { INITIAL_PARAMS, PARAM_KEYS, QUESTIONS, WELCOME } from '@/constants/message';
 import { IMessage, PromptParams } from '@/types/message';
+import { generateMessages } from '@/services/messages';
 import Message from './Message';
 import Input from './Input';
-import { generateMessages } from '@/services/messages';
 
 const ChatRoom = () => {
   const [currentStep, setCurrentStep] = useState(0);
@@ -50,6 +50,7 @@ const ChatRoom = () => {
         const newMessages = res.map<IMessage>((message) => ({
           from: 'bot',
           content: message.slice(3),
+          copyId: message.slice(0, 1),
         }));
         setMessages((prev) => [...prev, ...newMessages]);
       });
@@ -86,7 +87,13 @@ const ChatRoom = () => {
 
         <Message from="bot" content={WELCOME} />
         {messages.map((message, index) => (
-          <Message key={index} from={message.from} content={message.content} delay />
+          <Message
+            key={index}
+            from={message.from}
+            content={message.content}
+            copyId={message.copyId}
+            delay
+          />
         ))}
         <div ref={bottomRef} />
       </main>
