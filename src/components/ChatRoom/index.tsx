@@ -45,8 +45,13 @@ const ChatRoom = () => {
       };
 
       setParams(newParams);
+      getNextMessage(inputValue, '메시지를 생성하는 중입니다. 잠시만 기다려주세요.');
       generateMessages(newParams).then((res) => {
-        console.log(res);
+        const newMessages = res.map<IMessage>((message) => ({
+          from: 'bot',
+          content: message.slice(3),
+        }));
+        setMessages((prev) => [...prev, ...newMessages]);
       });
       return;
     }
