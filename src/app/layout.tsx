@@ -13,7 +13,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en">
       <body className={inter.className} data-theme="light">
-        {children}
+        <main className="flex min-h-[100dvh] flex-col max-w-lg mx-auto">{children}</main>
       </body>
     </html>
   );

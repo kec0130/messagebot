@@ -139,35 +139,32 @@ const ChatRoom = () => {
   }, [messages, chunk, isDone]);
 
   return (
-    <>
+    <div className="min-h-[100dvh] h-full py-[70px] px-4 bg-sky-50">
       <Header />
-      <main className="flex min-h-[100dvh] flex-col max-w-lg mx-auto py-[70px] px-4 bg-sky-50">
-        <div className="w-fit text-sm rounded-full px-3 py-1 mx-auto my-2 bg-slate-200 text-slate-600">
-          {convertDate(new Date())}
-        </div>
+      <div className="w-fit text-sm rounded-full px-3 py-1 mx-auto my-2 bg-slate-200 text-slate-600">
+        {convertDate(new Date())}
+      </div>
 
-        <Message from="bot" content={WELCOME} animation="fadeIn" />
-        {messages.map((message, index) => (
-          <Message
-            key={index}
-            from={message.from}
-            content={message.content}
-            copyId={message.copyId}
-            animation={message.animation}
-          />
-        ))}
+      <Message from="bot" content={WELCOME} animation="fadeIn" />
+      {messages.map((message, index) => (
+        <Message
+          key={index}
+          from={message.from}
+          content={message.content}
+          copyId={message.copyId}
+          animation={message.animation}
+        />
+      ))}
 
-        {currentStep === PARAM_KEYS.length && !isDone && <Message from="bot" content={chunk} />}
+      {currentStep === PARAM_KEYS.length && !isDone && <Message from="bot" content={chunk} />}
 
-        {isDone && (
-          <ControlButtons
-            handleReplayClick={handleReplayClick}
-            handleRestartClick={handleRestartClick}
-          />
-        )}
-
-        <div ref={bottomRef} />
-      </main>
+      {isDone && (
+        <ControlButtons
+          handleReplayClick={handleReplayClick}
+          handleRestartClick={handleRestartClick}
+        />
+      )}
+      <div ref={bottomRef} />
 
       <Input
         value={value}
@@ -175,7 +172,7 @@ const ChatRoom = () => {
         handleSubmit={handleSubmit}
         disabled={isInputDisabled}
       />
-    </>
+    </div>
   );
 };
 
