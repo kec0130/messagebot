@@ -13,6 +13,9 @@ import { generateStream } from '@/services/messages';
 import Message from './Message';
 import Input from './Input';
 import ControlButtons from './ControlButtons';
+import { ArrowBackIcon } from '../../../public/icons';
+import Link from 'next/link';
+import Header from './Header';
 
 const ChatRoom = () => {
   const [currentStep, setCurrentStep] = useState(0);
@@ -137,10 +140,7 @@ const ChatRoom = () => {
 
   return (
     <>
-      <header className="fixed z-10 top-0 left-0 right-0 max-w-lg h-[56px] mx-auto flex justify-center items-center bg-white shadow">
-        <h1 className="text-center font-bold text-lg">메시지봇</h1>
-      </header>
-
+      <Header />
       <main className="flex min-h-[100dvh] flex-col max-w-lg mx-auto py-[70px] px-4 bg-sky-50">
         <div className="w-fit text-sm rounded-full px-3 py-1 mx-auto my-2 bg-slate-200 text-slate-600">
           {convertDate(new Date())}
