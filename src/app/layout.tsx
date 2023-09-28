@@ -4,7 +4,7 @@ import { getMetaData } from './sharedMetadata';
 
 const inter = Inter({ subsets: ['latin'] });
 
-export const metadata = getMetaData({});
+export const metadata = getMetaData({ url: '/' });
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
