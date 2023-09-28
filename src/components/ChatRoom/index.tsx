@@ -19,10 +19,10 @@ const ChatRoom = () => {
   const [value, setValue] = useState('');
   const [messages, setMessages] = useState<IMessage[]>(INITIAL_MESSAGES);
   const [params, setParams] = useState<PromptParams>(INITIAL_PARAMS);
-  const [isInputDisabled, setIsInputDisabled] = useState(false);
   const [chunk, setChunk] = useState('');
-  const [isDone, setIsDone] = useState(false);
   const [chunkId, setChunkId] = useState(0);
+  const [isDone, setIsDone] = useState(false);
+  const [isInputDisabled, setIsInputDisabled] = useState(false);
   const bottomRef = useRef<HTMLDivElement>(null);
 
   const getNextMessage = (user: string, bot: string) => {
@@ -39,33 +39,37 @@ const ChatRoom = () => {
     setIsDone(false);
     setCurrentStep((prev) => prev + 1);
 
-    const stream = await generateStream(params);
-    if (!stream) return;
-    const reader = stream.getReader();
-    const decoder = new TextDecoder();
-    let newChunk = '';
+    try {
+      const stream = await generateStream(params);
+      if (!stream) return;
+      const reader = stream.getReader();
+      const decoder = new TextDecoder();
+      let newChunk = '';
 
-    while (true) {
-      const { value, done } = await reader.read();
-      if (done) {
-        setIsDone(true);
-        setChunkId((prev) => prev + 1);
-        break;
-      }
+      while (true) {
+        const { value, done } = await reader.read();
+        if (done) {
+          setIsDone(true);
+          setChunkId((prev) => prev + 1);
+          break;
+        }
 
-      const decodedChunk = decoder.decode(value, { stream: true });
+        const decodedChunk = decoder.decode(value, { stream: true });
 
-      if (decodedChunk.includes('\n\n')) {
-        const arr = decodedChunk.split('\n\n');
-        newChunk += arr[0];
+        if (decodedChunk.includes('\n\n')) {
+          const arr = decodedChunk.split('\n\n');
+          newChunk += arr[0];
+          setChunk(newChunk);
+          newChunk = arr[1].replace('@', '');
+          setChunkId((prev) => prev + 1);
+          continue;
+        }
+
+        newChunk += decodedChunk.replace('@', '');
         setChunk(newChunk);
-        newChunk = arr[1].replace('@', '');
-        setChunkId((prev) => prev + 1);
-        continue;
       }
-
-      newChunk += decodedChunk.replace('@', '');
-      setChunk(newChunk);
+    } catch (error) {
+      getNextMessage('', '오늘 사용량을 모두 사용하셨습니다. 내일 다시 이용해주세요.');
     }
   };
 
