@@ -6,16 +6,14 @@ import {
   INITIAL_PARAMS,
   PARAM_KEYS,
   QUESTIONS,
-  WELCOME,
+  WELCOME_MESSAGES,
 } from '@/constants/message';
 import { IMessage, PromptParams } from '@/types/message';
 import { generateStream } from '@/services/messages';
+import Header from './Header';
 import Message from './Message';
 import Input from './Input';
 import ControlButtons from './ControlButtons';
-import { ArrowBackIcon } from '../../../public/icons';
-import Link from 'next/link';
-import Header from './Header';
 
 const ChatRoom = () => {
   const [currentStep, setCurrentStep] = useState(0);
@@ -145,7 +143,10 @@ const ChatRoom = () => {
         {convertDate(new Date())}
       </div>
 
-      <Message from="bot" content={WELCOME} animation="fadeIn" />
+      {WELCOME_MESSAGES.map((message) => (
+        <Message key={message} from="bot" content={message} animation="fadeIn" />
+      ))}
+
       {messages.map((message, index) => (
         <Message
           key={index}

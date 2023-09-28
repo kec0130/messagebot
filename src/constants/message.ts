@@ -1,6 +1,10 @@
 import { IMessage, PromptParams } from '@/types/message';
 
-export const WELCOME = '안녕하세요! 소중한 사람들에게 따뜻한 인사를 전하는 메시지봇이에요.';
+export const WELCOME_MESSAGES = [
+  '안녕하세요! 소중한 사람들에게 따뜻한 인사를 전하는 메시지봇이에요.',
+  '제가 만든 메시지가 어색하더라도 귀엽게 봐주시고, 그냥 마음을 전해주세요.',
+  '메시지는 하루 최대 30회까지 생성할 수 있습니다.',
+];
 
 export const QUESTIONS = [
   '누구에게 메시지를 보내실 건가요?\n예) 엄마, 친구, 아는 언니, 학교 선배, 직장 동료',
