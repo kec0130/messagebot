@@ -1,7 +1,13 @@
 'use client';
 
 import { FormEvent, useEffect, useRef, useState } from 'react';
-import { INITIAL_PARAMS, PARAM_KEYS, QUESTIONS, WELCOME } from '@/constants/message';
+import {
+  INITIAL_MESSAGES,
+  INITIAL_PARAMS,
+  PARAM_KEYS,
+  QUESTIONS,
+  WELCOME,
+} from '@/constants/message';
 import { IMessage, PromptParams } from '@/types/message';
 import { generateStream } from '@/services/messages';
 import Message from './Message';
@@ -11,46 +17,55 @@ import ControlButtons from './ControlButtons';
 const ChatRoom = () => {
   const [currentStep, setCurrentStep] = useState(0);
   const [value, setValue] = useState('');
-  const [messages, setMessages] = useState<IMessage[]>([{ from: 'bot', content: QUESTIONS[0] }]);
+  const [messages, setMessages] = useState<IMessage[]>(INITIAL_MESSAGES);
   const [params, setParams] = useState<PromptParams>(INITIAL_PARAMS);
   const [isInputDisabled, setIsInputDisabled] = useState(false);
+  const [chunk, setChunk] = useState('');
+  const [isDone, setIsDone] = useState(false);
+  const [chunkId, setChunkId] = useState(0);
   const bottomRef = useRef<HTMLDivElement>(null);
 
-  const getNextMessage = (user: string | null, bot: string) => {
-    const newMessages: IMessage[] = user
-      ? [
-          { from: 'user', content: user },
-          { from: 'bot', content: bot },
-        ]
-      : [{ from: 'bot', content: bot }];
-
+  const getNextMessage = (user: string, bot: string) => {
+    const m: IMessage[] = [
+      { from: 'user', content: user },
+      { from: 'bot', content: bot, animation: true },
+    ];
+    const newMessages = m.filter((message) => message.content);
     setMessages((prev) => [...prev, ...newMessages]);
     setValue('');
   };
 
   const showGeneratedMessages = async (params: PromptParams) => {
+    setIsDone(false);
     setCurrentStep((prev) => prev + 1);
+
     const stream = await generateStream(params);
     if (!stream) return;
-
     const reader = stream.getReader();
     const decoder = new TextDecoder();
-    const newMessages = [...messages];
-    let text = '';
+    let newChunk = '';
 
     while (true) {
       const { value, done } = await reader.read();
       if (done) {
+        setIsDone(true);
+        setChunkId((prev) => prev + 1);
         break;
       }
 
       const decodedChunk = decoder.decode(value, { stream: true });
-      text += decodedChunk;
-      newMessages.splice(newMessages.length - 1, 1, {
-        from: 'bot',
-        content: text,
-      });
-      setMessages(newMessages);
+
+      if (decodedChunk.includes('\n\n')) {
+        const arr = decodedChunk.split('\n\n');
+        newChunk += arr[0];
+        setChunk(newChunk);
+        newChunk = arr[1].replace('@', '');
+        setChunkId((prev) => prev + 1);
+        continue;
+      }
+
+      newChunk += decodedChunk.replace('@', '');
+      setChunk(newChunk);
     }
   };
 
@@ -73,7 +88,7 @@ const ChatRoom = () => {
       const newParams = { ...params, [PARAM_KEYS[currentStep]]: inputValue };
       setParams(newParams);
       setIsInputDisabled(true);
-      getNextMessage(inputValue, '메시지를 생성하는 중입니다. 잠시만 기다려주세요.');
+      getNextMessage(inputValue, '');
       await showGeneratedMessages(newParams);
       return;
     }
@@ -88,27 +103,33 @@ const ChatRoom = () => {
 
   const handleReplayClick = async () => {
     setCurrentStep((prev) => prev - 1);
-    getNextMessage(null, '메시지를 생성하는 중입니다. 잠시만 기다려주세요.');
     await showGeneratedMessages(params);
   };
 
   const handleRestartClick = () => {
+    setIsDone(false);
     setCurrentStep(0);
     setIsInputDisabled(false);
-    getNextMessage(null, QUESTIONS[0]);
+    getNextMessage('', QUESTIONS[0]);
   };
 
   const convertDate = (date: Date) => {
     const year = date.getFullYear();
     const month = date.getMonth() + 1;
     const day = date.getDate();
-
     return `${year}년 ${month}월 ${day}일`;
   };
 
   useEffect(() => {
+    if (chunkId > 0) {
+      setMessages((prev) => [...prev, { from: 'bot', content: chunk, copyId: `${chunkId}` }]);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [chunkId]);
+
+  useEffect(() => {
     if (bottomRef.current) bottomRef.current.scrollIntoView({ behavior: 'smooth' });
-  }, [messages]);
+  }, [messages, chunk, isDone]);
 
   return (
     <>
@@ -128,11 +149,13 @@ const ChatRoom = () => {
             from={message.from}
             content={message.content}
             copyId={message.copyId}
-            delay
+            animation={message.animation}
           />
         ))}
 
-        {currentStep === PARAM_KEYS.length && (
+        {currentStep === PARAM_KEYS.length && <Message from="bot" content={chunk} animation />}
+
+        {isDone && (
           <ControlButtons
             handleReplayClick={handleReplayClick}
             handleRestartClick={handleRestartClick}

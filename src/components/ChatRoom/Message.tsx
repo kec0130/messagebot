@@ -3,10 +3,6 @@ import { MouseEvent, useState } from 'react';
 import { IMessage } from '@/types/message';
 import { CheckIcon, CopyIcon } from '../../../public/icons';
 
-interface Props extends IMessage {
-  delay?: boolean;
-}
-
 const CopyableMessage = ({ content, copyId }: Pick<IMessage, 'content' | 'copyId'>) => {
   const [copiedId, setCopiedId] = useState('');
 
@@ -33,13 +29,13 @@ const CopyableMessage = ({ content, copyId }: Pick<IMessage, 'content' | 'copyId
   );
 };
 
-const Message = ({ from, content, copyId, delay }: Props) => {
+const Message = ({ from, content, copyId, animation }: IMessage) => {
   return (
     <>
       {from === 'bot' && (
         <div
           className={`chat chat-start pt-2 pb-4 whitespace-pre-line relative ${
-            delay ? 'animate-fadeInDelay' : 'animate-fadeIn'
+            animation ? 'animate-fadeInDelay' : 'animate-fadeIn'
           }`}
         >
           <div className="chat-image avatar">
