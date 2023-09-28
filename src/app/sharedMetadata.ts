@@ -5,11 +5,12 @@ interface Props {
   title?: string;
   description?: string;
   keywords?: string[];
+  imageUrl?: string;
 }
 
 const BASE_URL = 'https://messagebot.chaechae.life';
 
-const sharedMetadata = {
+const sharedMetadata: Required<Props> = {
   url: BASE_URL,
   title: '메시지봇 - 인사말 생성 AI 챗봇',
   description:
@@ -29,6 +30,7 @@ const sharedMetadata = {
     '축하 메시지',
     '안부 메시지',
   ],
+  imageUrl: '/images/og.png',
 };
 
 export const getMetaData = ({
@@ -36,6 +38,7 @@ export const getMetaData = ({
   title = sharedMetadata.title,
   description = sharedMetadata.description,
   keywords = sharedMetadata.keywords,
+  imageUrl = sharedMetadata.imageUrl,
 }: Props): Metadata => ({
   title,
   description,
@@ -47,9 +50,28 @@ export const getMetaData = ({
     title,
     description,
     siteName: '메시지봇',
+    images: [
+      {
+        url: imageUrl,
+        type: 'image/png',
+        width: 1200,
+        height: 630,
+        alt: '메시지봇',
+      },
+    ],
   },
   twitter: {
+    card: 'summary_large_image',
     title,
     description,
+    images: [
+      {
+        url: imageUrl,
+        type: 'image/png',
+        width: 1200,
+        height: 630,
+        alt: '메시지봇',
+      },
+    ],
   },
 });
