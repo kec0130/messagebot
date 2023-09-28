@@ -13,7 +13,7 @@ export const INITIAL_MESSAGES: IMessage[] = [
   {
     from: 'bot',
     content: QUESTIONS[0],
-    animation: true,
+    animation: 'fadeInDelay',
   },
 ];
 

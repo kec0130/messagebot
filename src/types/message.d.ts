@@ -9,5 +9,7 @@ export interface IMessage {
   from: 'bot' | 'user';
   content: string;
   copyId?: string;
-  animation?: boolean;
+  animation?: MessageAnimation;
 }
+
+export type MessageAnimation = 'fadeIn' | 'fadeInDelay';

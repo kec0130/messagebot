@@ -1,3 +1,4 @@
+import clsx from 'clsx';
 import Image from 'next/image';
 import { MouseEvent, useState } from 'react';
 import { IMessage } from '@/types/message';
@@ -34,9 +35,10 @@ const Message = ({ from, content, copyId, animation }: IMessage) => {
     <>
       {from === 'bot' && (
         <div
-          className={`chat chat-start pt-2 pb-4 whitespace-pre-line relative ${
-            animation ? 'animate-fadeInDelay' : 'animate-fadeIn'
-          }`}
+          className={clsx('chat chat-start pt-2 pb-4 whitespace-pre-line relative', {
+            'animate-fadeIn': animation === 'fadeIn',
+            'animate-fadeInDelay': animation === 'fadeInDelay',
+          })}
         >
           <div className="chat-image avatar">
             <div className="w-10 h-10 rounded-full">

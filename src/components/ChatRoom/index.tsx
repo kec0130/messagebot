@@ -28,7 +28,7 @@ const ChatRoom = () => {
   const getNextMessage = (user: string, bot: string) => {
     const m: IMessage[] = [
       { from: 'user', content: user },
-      { from: 'bot', content: bot, animation: true },
+      { from: 'bot', content: bot, animation: 'fadeInDelay' },
     ];
     const newMessages = m.filter((message) => message.content);
     setMessages((prev) => [...prev, ...newMessages]);
@@ -146,7 +146,7 @@ const ChatRoom = () => {
           {convertDate(new Date())}
         </div>
 
-        <Message from="bot" content={WELCOME} />
+        <Message from="bot" content={WELCOME} animation="fadeIn" />
         {messages.map((message, index) => (
           <Message
             key={index}
@@ -157,7 +157,7 @@ const ChatRoom = () => {
           />
         ))}
 
-        {currentStep === PARAM_KEYS.length && <Message from="bot" content={chunk} animation />}
+        {currentStep === PARAM_KEYS.length && !isDone && <Message from="bot" content={chunk} />}
 
         {isDone && (
           <ControlButtons
