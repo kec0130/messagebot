@@ -2,10 +2,10 @@ import axios from 'axios';
 import { PromptParams } from '@/types/message';
 
 const axiosInstance = axios.create({
-  baseURL: 'http://127.0.0.1:8000',
+  baseURL: process.env.NEXT_PUBLIC_API_URL,
   timeout: 1000 * 30,
   headers: {
-    secret: 'dev',
+    secret: process.env.NEXT_PUBLIC_API_SECRET,
     'Content-Type': 'application/json',
   },
 });
@@ -20,10 +20,10 @@ export const generateMessages = async (params: PromptParams) => {
 };
 
 export const generateStream = async (params: PromptParams) => {
-  const response = await fetch('http://127.0.0.1:8000/apis/messages/streaming/', {
+  const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/apis/messages/streaming/`, {
     method: 'POST',
     headers: {
-      secret: 'dev',
+      secret: process.env.NEXT_PUBLIC_API_SECRET!,
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({
