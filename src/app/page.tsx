@@ -1,13 +1,5 @@
-import Link from 'next/link';
+import LandingPage from '@/components/Home';
 
 export default function Home() {
-  return (
-    <>
-      <button className="btn">
-        <Link href="/chat" className="w-full h-full flex justify-center items-center">
-          메시지 만들러 가기
-        </Link>
-      </button>
-    </>
-  );
+  return <LandingPage />;
 }
