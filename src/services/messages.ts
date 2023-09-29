@@ -19,11 +19,16 @@ export const generateMessages = async (params: PromptParams) => {
   return data.results;
 };
 
+const BASE_URL =
+  process.env.NODE_ENV === 'production' ? process.env.NEXT_PUBLIC_API_URL : 'http://127.0.0.1:8000';
+
+const SECRET = process.env.NODE_ENV === 'production' ? process.env.NEXT_PUBLIC_API_SECRET : 'dev';
+
 export const generateStream = async (params: PromptParams) => {
-  const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/apis/messages/streaming/`, {
+  const response = await fetch(`${BASE_URL}/apis/messages/streaming/`, {
     method: 'POST',
     headers: {
-      secret: process.env.NEXT_PUBLIC_API_SECRET!,
+      secret: SECRET!,
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({

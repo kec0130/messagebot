@@ -38,6 +38,7 @@ const ChatRoom = () => {
   };
 
   const showGeneratedMessages = async (params: PromptParams) => {
+    setChunk('');
     setIsDone(false);
     setCurrentStep((prev) => prev + 1);
 
@@ -60,7 +61,7 @@ const ChatRoom = () => {
 
         if (decodedChunk.includes('\n\n')) {
           const arr = decodedChunk.split('\n\n');
-          newChunk += arr[0];
+          newChunk += arr[0].replace('@', '');
           setChunk(newChunk);
           newChunk = arr[1].replace('@', '');
           setChunkId((prev) => prev + 1);
