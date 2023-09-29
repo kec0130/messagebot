@@ -23,6 +23,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             gtag('config', '${process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID}');
           `}
         </Script>
+        <meta
+          name="google-site-verification"
+          content="j55AaadIA61HQPb4UPNGhbnup__c6E3fJu5ZD84yf1U"
+        />
+        <meta name="naver-site-verification" content="88b9c255f0df08e92cbae6304a803dd3ac832411" />
       </head>
       <body className={inter.className}>
         <main className="flex min-h-[100dvh] flex-col max-w-lg mx-auto">{children}</main>
