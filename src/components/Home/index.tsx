@@ -13,7 +13,7 @@ const LandingPage = () => {
           height={170}
           className="mb-5 md:mb-10"
         />
-        <button className="btn btn-neutral w-[235px] h-[50px] rounded-[10px]">
+        <button className="btn btn-neutral w-[235px] h-[50px] rounded-[10px] text-lg">
           <Link href="/chat" className="w-full h-full flex justify-center items-center gap-2">
             메시지 만들러 가기
           </Link>
