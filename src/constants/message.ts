@@ -2,8 +2,7 @@ import { IMessage, PromptParams } from '@/types/message';
 
 export const WELCOME_MESSAGES = [
   '안녕하세요! 소중한 사람들에게 따뜻한 인사를 전하는 메시지봇이에요.',
-  '제가 만든 메시지가 어색하더라도 귀엽게 봐주시고, 그냥 마음을 전해주세요.',
-  '메시지는 하루 최대 30회까지 생성할 수 있습니다.',
+  '제가 만든 메시지가 어색하더라도 귀엽게 봐주시고, 상대방에게 마음을 전해주세요. 메시지는 하루 최대 30회까지 생성할 수 있습니다.',
 ];
 
 export const QUESTIONS = [
