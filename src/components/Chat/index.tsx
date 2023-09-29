@@ -137,7 +137,7 @@ const ChatRoom = () => {
   }, [messages, chunk, isDone]);
 
   return (
-    <div className="min-h-[100dvh] h-full py-[70px] px-4 bg-sky-50">
+    <div className="min-h-[100dvh] h-full py-[70px] px-4 mb-safe bg-sky-50">
       <Header />
       <div className="w-fit text-sm rounded-full px-3 py-1 mx-auto my-2 bg-slate-200 text-slate-600">
         {convertDate(new Date())}

@@ -10,8 +10,8 @@ interface Props {
 
 const Input = ({ value, setValue, handleSubmit, disabled }: Props) => {
   return (
-    <div className="fixed z-10 bottom-0 left-0 right-0 max-w-lg mx-auto p-2 bg-sky-100 shadow-up">
-      <form onSubmit={handleSubmit}>
+    <div className="fixed z-10 bottom-0 left-0 right-0 max-w-lg mx-auto p-2 bg-sky-200 shadow-up">
+      <form className="relative mb-safe focus-within:mb-0" onSubmit={handleSubmit}>
         <input
           type="text"
           placeholder="메시지를 입력하세요"
@@ -22,7 +22,7 @@ const Input = ({ value, setValue, handleSubmit, disabled }: Props) => {
         />
         <button
           type="submit"
-          className="absolute right-2 top-1/2 transform -translate-y-1/2 -translate-x-1 bg-sky-500 rounded-full w-9 h-9 flex justify-center items-center"
+          className="absolute right-0 top-1/2 transform -translate-y-1/2 -translate-x-1 bg-sky-500 rounded-full w-9 h-9 flex justify-center items-center"
         >
           <SendIcon className="fill-white" />
         </button>
