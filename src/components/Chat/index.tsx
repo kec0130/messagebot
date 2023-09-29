@@ -23,6 +23,7 @@ const ChatRoom = () => {
   const [chunk, setChunk] = useState('');
   const [chunkId, setChunkId] = useState(0);
   const [isDone, setIsDone] = useState(false);
+  const [isError, setIsError] = useState(false);
   const [isInputDisabled, setIsInputDisabled] = useState(false);
   const bottomRef = useRef<HTMLDivElement>(null);
 
@@ -71,6 +72,8 @@ const ChatRoom = () => {
       }
     } catch (error) {
       getNextMessage('', '오늘 사용량을 모두 사용하셨습니다. 내일 다시 이용해주세요.');
+      setIsDone(true);
+      setIsError(true);
     }
   };
 
@@ -159,7 +162,7 @@ const ChatRoom = () => {
 
       {currentStep === PARAM_KEYS.length && !isDone && <Message from="bot" content={chunk} />}
 
-      {isDone && (
+      {isDone && !isError && (
         <ControlButtons
           handleReplayClick={handleReplayClick}
           handleRestartClick={handleRestartClick}
