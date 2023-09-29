@@ -18,16 +18,19 @@ const LandingPage = () => {
             메시지 만들러 가기
           </Link>
         </button>
-        <div
-          className="flex justify-center items-center"
-          dangerouslySetInnerHTML={{
-            __html: `
-          <a href="https://www.buymeacoffee.com/chaechaecod" target="_blank">
-            <img src="https://img.buymeacoffee.com/button-api/?text=Buy me a coffee&emoji=☕&slug=chaechaecod&button_colour=5F7FFF&font_colour=ffffff&font_family=Lato&outline_colour=000000&coffee_colour=FFDD00" />
+        <div className="w-[235px] h-[50px]">
+          <a
+            href="https://www.buymeacoffee.com/chaechaecod"
+            target="_blank"
+            className="w-full h-full"
+          >
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="https://img.buymeacoffee.com/button-api/?text=Buy me a coffee&emoji=☕&slug=chaechaecod&button_colour=5F7FFF&font_colour=ffffff&font_family=Lato&outline_colour=000000&coffee_colour=FFDD00"
+              alt="buy me a coffee"
+            />
           </a>
-        `,
-          }}
-        />
+        </div>
       </div>
 
       <footer className="footer footer-center p-4 bg-base-300 text-base-content gap-4">
