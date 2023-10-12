@@ -6,7 +6,7 @@
 
 AI를 활용해 안부 메시지를 쉽고 빠르게 생성해주는 챗봇 서비스입니다.
 
-![messagebot](https://github.com/kec0130/messagebot/assets/77032760/47196773-db5b-4fbe-8f57-ffea2e3edda7)
+![messagebot](https://github.com/kec0130/messagebot/assets/77032760/06713039-3adc-4b5b-8157-2714eb80ae4f)
 
 <br />
 
