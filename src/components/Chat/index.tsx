@@ -10,7 +10,7 @@ import {
 } from './constants';
 import { IMessage, PromptParams } from '@/types/message';
 import { generateStream } from '@/services/messages';
-import Header from './Header';
+import Header from '../Common/Header';
 import Message from './Message';
 import Input from './Input';
 import ControlButtons from './ControlButtons';
@@ -136,7 +136,7 @@ const ChatRoom = () => {
 
   return (
     <>
-      <Header />
+      <Header title="메시지봇" leftUrl="/" rightUrl="/chat/tutorial" />
       <DateBadge />
 
       {WELCOME_MESSAGES.map((message) => (

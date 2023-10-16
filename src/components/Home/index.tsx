@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
-import BuyMeACoffeeButton from '../BuyMeACoffee/Button';
-import Footer from './Footer';
+import BuyMeACoffeeButton from '../Common/BuyMeACoffee/Button';
+import Footer from '../Common/Footer';
 
 const LandingPage = () => {
   return (
