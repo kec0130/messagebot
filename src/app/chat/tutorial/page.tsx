@@ -10,8 +10,8 @@ const TutorialPage = () => {
         src="/images/tutorial.gif"
         alt="사용방법"
         width={400}
-        height={710}
-        style={{ width: '100%' }}
+        height={650}
+        style={{ width: '100%', height: 'auto' }}
       />
 
       <h2 className="mb-4 mt-6 text-lg font-bold">
