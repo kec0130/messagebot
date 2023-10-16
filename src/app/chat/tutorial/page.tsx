@@ -17,7 +17,7 @@ const TutorialPage = () => {
       <h2 className="mb-4 mt-6 text-lg font-bold">
         더 나은 메시지를 생성하려면 질문에 이렇게 답변해주세요! 😎
       </h2>
-      <ol className="ml-4 list-outside list-decimal whitespace-pre-line">
+      <ol className="ml-6 list-outside list-decimal whitespace-pre-line">
         <li>{`${QUESTIONS[0]}\n➡ 관계, 직함 등을 나타내는 단어를 입력`}</li>
         <li className="mt-4">{QUESTIONS[1]}</li>
         <ul className="ml-4 mt-2 list-outside list-disc">
