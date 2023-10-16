@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import Image from 'next/image';
-import BuyMeACoffeeButton from '../Common/BuyMeACoffee/Button';
+import BuyMeACoffeeButton from '../BuyMeACoffee/Button';
 import Footer from './Footer';
 
 const LandingPage = () => {

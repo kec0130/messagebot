@@ -7,7 +7,7 @@ import {
   PARAM_KEYS,
   QUESTIONS,
   WELCOME_MESSAGES,
-} from '@/constants/message';
+} from './constants';
 import { IMessage, PromptParams } from '@/types/message';
 import { generateStream } from '@/services/messages';
 import Header from './Header';
