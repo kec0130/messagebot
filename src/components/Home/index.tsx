@@ -5,8 +5,8 @@ import Footer from './Footer';
 
 const LandingPage = () => {
   return (
-    <div className="flex flex-col justify-between h-[100dvh]">
-      <div className="flex flex-1 flex-col gap-5 justify-center items-center">
+    <div className="flex h-[100dvh] flex-col justify-between">
+      <div className="flex flex-1 flex-col items-center justify-center gap-5">
         <Image
           src="/images/text-logo.png"
           alt="logo"
@@ -21,14 +21,14 @@ const LandingPage = () => {
           height={170}
           className="w-[120px] md:w-[160px]"
         />
-        <p className="text-lg md:text-xl text-center md:my-4">
+        <p className="text-center text-lg md:my-4 md:text-xl">
           특별한 안부 인사로
           <br />
           따뜻한 마음을 전하세요.
         </p>
 
-        <button className="btn btn-neutral w-[235px] h-[50px] rounded-[10px] text-lg">
-          <Link href="/chat" className="w-full h-full flex justify-center items-center gap-2">
+        <button className="btn btn-neutral h-[50px] w-[235px] rounded-[10px] text-lg">
+          <Link href="/chat" className="flex h-full w-full items-center justify-center gap-2">
             메시지 만들러 가기
           </Link>
         </button>

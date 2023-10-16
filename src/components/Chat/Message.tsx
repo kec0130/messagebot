@@ -18,11 +18,11 @@ const CopyableMessage = ({ content, copyId }: Pick<IMessage, 'content' | 'copyId
     <>
       <button id={copyId} value={content} onClick={handleCopyClick} className="text-left">
         <div className="chat-bubble">{content}</div>
-        <div className="absolute right-0 bottom-4">
+        <div className="absolute bottom-4 right-0">
           {copyId === copiedId ? (
             <CheckIcon className="fill-sky-500" />
           ) : (
-            <CopyIcon className="fill-slate-400 w-5 h-5" />
+            <CopyIcon className="h-5 w-5 fill-slate-400" />
           )}
         </div>
       </button>
@@ -35,13 +35,13 @@ const Message = ({ from, content, copyId, animation }: IMessage) => {
     <>
       {from === 'bot' && (
         <div
-          className={clsx('chat chat-start pt-2 pb-4 whitespace-pre-line relative', {
+          className={clsx('chat chat-start relative whitespace-pre-line pb-4 pt-2', {
             'animate-fadeIn': animation === 'fadeIn',
             'animate-fadeInDelay': animation === 'fadeInDelay',
           })}
         >
-          <div className="chat-image avatar">
-            <div className="w-10 h-10 rounded-full">
+          <div className="avatar chat-image">
+            <div className="h-10 w-10 rounded-full">
               <Image src="/images/avatar.png" alt="avatar" width={40} height={40} />
             </div>
           </div>

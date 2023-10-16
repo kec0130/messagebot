@@ -14,6 +14,7 @@ import Header from './Header';
 import Message from './Message';
 import Input from './Input';
 import ControlButtons from './ControlButtons';
+import DateBadge from './DateBadge';
 
 const ChatRoom = () => {
   const [currentStep, setCurrentStep] = useState(0);
@@ -122,13 +123,6 @@ const ChatRoom = () => {
     getNextMessage('', QUESTIONS[0]);
   };
 
-  const convertDate = (date: Date) => {
-    const year = date.getFullYear();
-    const month = date.getMonth() + 1;
-    const day = date.getDate();
-    return `${year}년 ${month}월 ${day}일`;
-  };
-
   useEffect(() => {
     if (chunkId > 0) {
       setMessages((prev) => [...prev, { from: 'bot', content: chunk, copyId: `${chunkId}` }]);
@@ -143,9 +137,7 @@ const ChatRoom = () => {
   return (
     <>
       <Header />
-      <div className="w-fit text-sm rounded-full px-3 py-1 mx-auto my-2 bg-slate-200 text-slate-600">
-        {convertDate(new Date())}
-      </div>
+      <DateBadge />
 
       {WELCOME_MESSAGES.map((message) => (
         <Message key={message} from="bot" content={message} animation="fadeIn" />

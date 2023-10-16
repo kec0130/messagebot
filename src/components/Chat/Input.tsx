@@ -10,19 +10,19 @@ interface Props {
 
 const Input = ({ value, setValue, handleSubmit, disabled }: Props) => {
   return (
-    <div className="fixed z-10 bottom-0 left-0 right-0 max-w-lg mx-auto p-2 bg-sky-200 shadow-up">
-      <form className="relative mb-safe focus-within:mb-0" onSubmit={handleSubmit}>
+    <div className="fixed bottom-0 left-0 right-0 z-10 mx-auto max-w-lg bg-sky-200 p-2 shadow-up">
+      <form className="mb-safe relative focus-within:mb-0" onSubmit={handleSubmit}>
         <input
           type="text"
           placeholder="메시지를 입력하세요"
-          className="w-full h-11 rounded-full px-4"
+          className="h-11 w-full rounded-full px-4"
           value={value}
           onChange={(e) => setValue(e.target.value)}
           disabled={disabled}
         />
         <button
           type="submit"
-          className="absolute right-0 top-1/2 transform -translate-y-1/2 -translate-x-1 bg-sky-500 rounded-full w-9 h-9 flex justify-center items-center"
+          className="absolute right-0 top-1/2 flex h-9 w-9 -translate-x-1 -translate-y-1/2 transform items-center justify-center rounded-full bg-sky-500"
         >
           <SendIcon className="fill-white" />
         </button>

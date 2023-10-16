@@ -1,11 +1,11 @@
 const BuyMeACoffeeButton = () => {
   return (
-    <div className="w-[235px] h-[50px]">
+    <div className="h-[50px] w-[235px]">
       <a
         href="https://www.buymeacoffee.com/chaechaecod"
         target="_blank"
         rel="noreferrer noopener"
-        className="w-full h-full"
+        className="h-full w-full"
       >
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
