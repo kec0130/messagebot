@@ -9,6 +9,9 @@ const TutorialPage = () => {
   return (
     <>
       <Header title="사용방법" leftUrl="/chat" />
+      <h2 className="mb-4 mt-2 text-lg font-medium">
+        더 나은 메시지를 생성하려면 질문에 이렇게 답변해주세요! 😎
+      </h2>
       <Image
         src="/images/tutorial.gif"
         alt="사용방법"
@@ -16,11 +19,7 @@ const TutorialPage = () => {
         height={650}
         style={{ width: '100%', height: 'auto' }}
       />
-
-      <h2 className="mt-6 text-lg font-medium">
-        더 나은 메시지를 생성하려면 질문에 이렇게 답변해주세요! 😎
-      </h2>
-      <ol className="mb-6 ml-6 mt-4 list-outside list-decimal whitespace-pre-line">
+      <ol className="my-6 ml-6 list-outside list-decimal whitespace-pre-line">
         <li>{`${QUESTIONS[0]}\n➡ 관계, 직함 등을 나타내는 단어를 입력`}</li>
         <li className="mt-4">{QUESTIONS[1]}</li>
         <ul className="ml-4 mt-2 list-outside list-disc">
