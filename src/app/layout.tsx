@@ -1,9 +1,17 @@
 import './globals.css';
-import { Inter } from 'next/font/google';
-import { getMetaData } from './sharedMetadata';
 import Script from 'next/script';
+import localFont from 'next/font/local';
+import clsx from 'clsx';
 
-const inter = Inter({ subsets: ['latin'] });
+import { getMetaData } from './sharedMetadata';
+
+const notoSans = localFont({
+  src: [
+    { path: '../../public/fonts/NotoSans-Regular.woff2', weight: '400' },
+    { path: '../../public/fonts/NotoSans-Medium.woff2', weight: '500' },
+  ],
+  fallback: ['system-ui', 'sans-serif'],
+});
 
 export const metadata = getMetaData({ url: '/' });
 
@@ -29,8 +37,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         />
         <meta name="naver-site-verification" content="88b9c255f0df08e92cbae6304a803dd3ac832411" />
       </head>
-      <body className={inter.className}>
-        <main className="flex min-h-[100dvh] flex-col max-w-lg mx-auto">{children}</main>
+      <body className={clsx(notoSans.className, 'font-normal')}>
+        <main className="mx-auto flex min-h-[100dvh] max-w-lg flex-col">{children}</main>
       </body>
     </html>
   );
