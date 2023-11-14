@@ -33,10 +33,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         </Script>
         <meta
           name="google-site-verification"
-          content="j55AaadIA61HQPb4UPNGhbnup__c6E3fJu5ZD84yf1U"
-        />
-        <meta
-          name="google-site-verification"
           content="yAPCOjrjXkneaFLU21zJVUZT_mDKpTL3BM8QPsHgvN0"
         />
         <meta name="naver-site-verification" content="88b9c255f0df08e92cbae6304a803dd3ac832411" />
