@@ -4,7 +4,7 @@ export const generateStream = async (params: PromptParams) => {
   const response = await fetch('/api/chat', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ ...params, maxLength: 200 }),
+    body: JSON.stringify({ ...params, maxLength: 300 }),
   });
 
   if (response.status !== 200) {
