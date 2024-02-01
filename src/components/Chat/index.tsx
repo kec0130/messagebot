@@ -84,8 +84,8 @@ const ChatRoom = () => {
     const inputValue = value.trim();
     if (!inputValue || currentStep === PARAM_KEYS.length) return;
 
-    if (inputValue.length > 8) {
-      getNextMessage(inputValue, '8자 이내로 입력해주세요.');
+    if (inputValue.length > 20) {
+      getNextMessage(inputValue, '20자 이내로 입력해주세요.');
       return;
     }
 
