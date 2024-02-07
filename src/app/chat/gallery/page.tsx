@@ -1,4 +1,4 @@
-import Header from '@/components/Chat/Header';
+import Header from '@/components/Common/Header';
 
 const GalleryPage = () => {
   return <Header title="메시지 갤러리" />;

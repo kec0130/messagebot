@@ -1,5 +1,5 @@
-import Header from '@/components/Chat/Header';
 import { getMetaData } from '@/app/sharedMetadata';
+import Header from '@/components/Common/Header';
 import Mockup from '@/components/Tutorial/Mockup';
 import QnA from '@/components/Tutorial/QnA';
 

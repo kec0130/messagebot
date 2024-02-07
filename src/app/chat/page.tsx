@@ -1,4 +1,4 @@
-import Header from '@/components/Chat/Header';
+import Header from '@/components/Common/Header';
 import ChatRoom from '@/components/Chat';
 
 const Chat = () => {
