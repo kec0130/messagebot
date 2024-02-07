@@ -6,7 +6,7 @@ const BuyMeACoffeeButton = () => {
       href="https://www.buymeacoffee.com/chaechaecod"
       target="_blank"
       rel="noreferrer noopener"
-      className="inline-flex items-center justify-center rounded-lg border-2 border-slate-700 bg-white"
+      className="inline-flex items-center justify-center rounded-lg border-2 border-slate-800 bg-white"
     >
       <img
         src="https://cdn.buymeacoffee.com/buttons/v2/lato-white.png"

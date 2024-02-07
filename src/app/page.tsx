@@ -28,12 +28,18 @@ export default function Home() {
           따뜻한 마음을 전하세요.
         </p>
 
-        <div className="flex w-[200px] flex-col gap-3 md:gap-5">
+        <div className="flex w-[200px] flex-col gap-4 md:gap-5">
           <Link
             href="/chat"
-            className="inline-flex h-[50px] items-center justify-center rounded-lg bg-slate-800 font-medium text-white hover:bg-slate-700"
+            className="inline-flex h-[50px] items-center justify-center rounded-lg bg-slate-800 font-medium text-white transition-colors hover:bg-slate-700"
           >
-            메시지 만들러 가기
+            메시지 만들기
+          </Link>
+          <Link
+            href="/chat/gallery"
+            className="inline-flex h-[50px] items-center justify-center rounded-lg border-2 border-slate-800 font-medium text-slate-800 transition-colors hover:bg-slate-100"
+          >
+            메시지 구경하기
           </Link>
           <BuyMeACoffeeButton />
         </div>
