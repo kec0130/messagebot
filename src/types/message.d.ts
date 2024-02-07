@@ -10,7 +10,6 @@ export interface IMessage {
   from: 'bot' | 'user';
   content: string;
   copyId?: string;
-  animation?: MessageAnimation;
+  fadeIn?: boolean;
+  delay?: number;
 }
-
-export type MessageAnimation = 'fadeIn' | 'fadeInDelay';

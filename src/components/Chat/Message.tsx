@@ -30,15 +30,16 @@ const CopyableMessage = ({ content, copyId }: Pick<IMessage, 'content' | 'copyId
   );
 };
 
-const Message = ({ from, content, copyId, animation }: IMessage) => {
+const Message = ({ from, content, copyId, fadeIn, delay }: IMessage) => {
   return (
     <>
       {from === 'bot' && (
         <div
-          className={clsx('chat chat-start relative whitespace-pre-line pb-4 pt-2', {
-            'animate-fadeIn': animation === 'fadeIn',
-            'animate-fadeInDelay': animation === 'fadeInDelay',
-          })}
+          className={clsx(
+            'chat chat-start relative whitespace-pre-line pb-4 pt-2',
+            fadeIn && 'animate-fadeIn',
+          )}
+          style={{ animationDelay: delay ? `${delay}s` : '' }}
         >
           <div className="avatar chat-image">
             <div className="h-10 w-10 rounded-full">

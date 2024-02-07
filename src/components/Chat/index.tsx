@@ -30,8 +30,8 @@ const ChatRoom = () => {
 
   const getNextMessage = (user: string, bot: string) => {
     const m: IMessage[] = [
-      { from: 'user', content: user },
-      { from: 'bot', content: bot, animation: 'fadeInDelay' },
+      { from: 'user', content: user, fadeIn: true },
+      { from: 'bot', content: bot, fadeIn: true },
     ];
     const newMessages = m.filter((message) => message.content);
     setMessages((prev) => [...prev, ...newMessages]);
@@ -139,8 +139,8 @@ const ChatRoom = () => {
       <Header title="메시지봇" leftUrl="/" rightUrl="/chat/tutorial" />
       <DateBadge />
 
-      {WELCOME_MESSAGES.map((message) => (
-        <Message key={message} from="bot" content={message} animation="fadeIn" />
+      {WELCOME_MESSAGES.map((message, index) => (
+        <Message key={message} from="bot" content={message} fadeIn delay={index / 10} />
       ))}
 
       {messages.map((message, index) => (
@@ -149,7 +149,8 @@ const ChatRoom = () => {
           from={message.from}
           content={message.content}
           copyId={message.copyId}
-          animation={message.animation}
+          fadeIn={message.fadeIn}
+          delay={message.delay}
         />
       ))}
 
