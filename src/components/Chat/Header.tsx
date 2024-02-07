@@ -10,7 +10,7 @@ interface Props {
 
 const Header = ({ title, leftUrl, rightUrl, rightIconType }: Props) => {
   return (
-    <header className="fixed left-0 right-0 top-0 z-10 mx-auto flex h-[56px] max-w-lg items-center justify-between bg-white shadow">
+    <header className="fixed left-0 right-0 top-0 z-10 mx-auto flex h-[56px] max-w-lg items-center justify-between bg-white px-2 shadow">
       {leftUrl && (
         <Link
           href={leftUrl}
