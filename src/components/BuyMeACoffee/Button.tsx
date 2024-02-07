@@ -2,19 +2,18 @@
 
 const BuyMeACoffeeButton = () => {
   return (
-    <>
-      <a
-        href="https://www.buymeacoffee.com/chaechaecod"
-        target="_blank"
-        rel="noreferrer noopener"
-        className="h-[50px] w-[235px]"
-      >
-        <img
-          src="https://img.buymeacoffee.com/button-api/?text=Buy me a coffee&emoji=☕&slug=chaechaecod&button_colour=5F7FFF&font_colour=ffffff&font_family=Lato&outline_colour=000000&coffee_colour=FFDD00"
-          alt="buy me a coffee"
-        />
-      </a>
-    </>
+    <a
+      href="https://www.buymeacoffee.com/chaechaecod"
+      target="_blank"
+      rel="noreferrer noopener"
+      className="inline-flex items-center justify-center rounded-lg border-2 border-slate-700 bg-white"
+    >
+      <img
+        src="https://cdn.buymeacoffee.com/buttons/v2/lato-white.png"
+        alt="Buy Me A Coffee"
+        className="h-[46px] w-auto"
+      />
+    </a>
   );
 };
 

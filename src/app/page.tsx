@@ -20,6 +20,7 @@ export default function Home() {
           width={160}
           height={170}
           className="w-[120px] md:w-[160px]"
+          priority
         />
         <p className="mb-2 text-center text-lg md:my-4 md:text-xl">
           특별한 안부 인사로
@@ -27,10 +28,10 @@ export default function Home() {
           따뜻한 마음을 전하세요.
         </p>
 
-        <div className="flex flex-col gap-3 md:gap-5">
+        <div className="flex w-[200px] flex-col gap-3 md:gap-5">
           <Link
             href="/chat"
-            className="inline-flex h-[50px] w-[235px] items-center justify-center rounded-xl bg-slate-800 font-medium text-white hover:bg-slate-700"
+            className="inline-flex h-[50px] items-center justify-center rounded-lg bg-slate-800 font-medium text-white hover:bg-slate-700"
           >
             메시지 만들러 가기
           </Link>
