@@ -28,14 +28,14 @@ const Footer = () => {
         >
           전기차G - 전기차 충전소 찾기
         </a>
-        <a
+        {/* <a
           href="https://chaechaekorea.com"
           target="_blank"
           rel="noreferrer noopener"
           className="link-hover link"
         >
           ChaeChae Korea
-        </a>
+        </a> */}
       </nav>
     </footer>
   );

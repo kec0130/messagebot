@@ -1,7 +1,9 @@
 import Link from 'next/link';
 import Image from 'next/image';
+
 import BuyMeACoffeeButton from '@/components/BuyMeACoffee/Button';
 import Footer from '@/components/Common/Footer';
+import { AddMessageIcon, GalleryIcon } from '../../public/icons';
 
 export default function Home() {
   return (
@@ -20,6 +22,7 @@ export default function Home() {
           width={160}
           height={170}
           className="w-[120px] md:w-[160px]"
+          priority
         />
         <p className="mb-2 text-center text-lg md:my-4 md:text-xl">
           특별한 안부 인사로
@@ -27,12 +30,14 @@ export default function Home() {
           따뜻한 마음을 전하세요.
         </p>
 
-        <div className="flex flex-col gap-3 md:gap-5">
-          <Link
-            href="/chat"
-            className="inline-flex h-[50px] w-[235px] items-center justify-center rounded-xl bg-slate-800 font-medium text-white hover:bg-slate-700"
-          >
-            메시지 만들러 가기
+        <div className="flex w-[200px] flex-col gap-4 md:gap-5">
+          <Link href="/chat" className="btn btn-neutral">
+            <AddMessageIcon className="h-5 w-5 fill-current" />
+            메시지 만들기
+          </Link>
+          <Link href="/chat/gallery" className="btn btn-outline border-2">
+            <GalleryIcon className="h-5 w-5 fill-current" />
+            메시지 구경하기
           </Link>
           <BuyMeACoffeeButton />
         </div>

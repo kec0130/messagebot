@@ -22,7 +22,7 @@ const Input = ({ value, setValue, handleSubmit, disabled }: Props) => {
         />
         <button
           type="submit"
-          className="absolute right-0 top-1/2 flex h-9 w-9 -translate-x-1 -translate-y-1/2 transform items-center justify-center rounded-full bg-sky-500"
+          className="absolute right-0 top-1/2 flex h-9 w-9 -translate-x-1 -translate-y-1/2 transform items-center justify-center rounded-full bg-sky-500 transition-colors hover:bg-sky-600"
         >
           <SendIcon className="fill-white" />
         </button>

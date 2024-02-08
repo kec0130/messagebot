@@ -9,8 +9,7 @@ export interface PromptParams {
 export interface IMessage {
   from: 'bot' | 'user';
   content: string;
-  copyId?: string;
-  animation?: MessageAnimation;
+  chunkId?: number;
+  fadeIn?: boolean;
+  delay?: number;
 }
-
-export type MessageAnimation = 'fadeIn' | 'fadeInDelay';

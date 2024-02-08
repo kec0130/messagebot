@@ -1,44 +1,21 @@
 import clsx from 'clsx';
 import Image from 'next/image';
-import { MouseEvent, useState } from 'react';
+import { useAtom } from 'jotai';
+
 import { IMessage } from '@/types/message';
-import { CheckIcon, CopyIcon } from '../../../public/icons';
+import { selectedContentAtom } from './states';
+import { ShareIcon } from '../../../public/icons';
 
-const CopyableMessage = ({ content, copyId }: Pick<IMessage, 'content' | 'copyId'>) => {
-  const [copiedId, setCopiedId] = useState('');
-
-  const handleCopyClick = (e: MouseEvent<HTMLButtonElement>) => {
-    const { id, value } = e.currentTarget;
-    navigator.clipboard.writeText(value);
-    setCopiedId(id);
-    setTimeout(() => setCopiedId(''), 2000);
-  };
-
-  return (
-    <>
-      <button id={copyId} value={content} onClick={handleCopyClick} className="text-left">
-        <div className="chat-bubble">{content}</div>
-        <div className="absolute bottom-4 right-0">
-          {copyId === copiedId ? (
-            <CheckIcon className="fill-sky-500" />
-          ) : (
-            <CopyIcon className="h-5 w-5 fill-slate-400" />
-          )}
-        </div>
-      </button>
-    </>
-  );
-};
-
-const Message = ({ from, content, copyId, animation }: IMessage) => {
+const Message = ({ from, content, chunkId, fadeIn, delay }: IMessage) => {
   return (
     <>
       {from === 'bot' && (
         <div
-          className={clsx('chat chat-start relative whitespace-pre-line pb-4 pt-2', {
-            'animate-fadeIn': animation === 'fadeIn',
-            'animate-fadeInDelay': animation === 'fadeInDelay',
-          })}
+          className={clsx(
+            'chat chat-start relative whitespace-pre-line pb-4 pt-2',
+            fadeIn && 'animate-fadeIn',
+          )}
+          style={{ animationDelay: delay ? `${delay}s` : '' }}
         >
           <div className="avatar chat-image">
             <div className="h-10 w-10 rounded-full">
@@ -46,8 +23,8 @@ const Message = ({ from, content, copyId, animation }: IMessage) => {
             </div>
           </div>
           <div className="chat-header">메시지봇</div>
-          {copyId ? (
-            <CopyableMessage content={content} copyId={copyId} />
+          {chunkId ? (
+            <GeneratedMessage content={content} />
           ) : (
             <div className="chat-bubble">{content}</div>
           )}
@@ -63,3 +40,28 @@ const Message = ({ from, content, copyId, animation }: IMessage) => {
 };
 
 export default Message;
+
+const GeneratedMessage = ({ content }: Pick<IMessage, 'content'>) => {
+  const [, setSelectedContent] = useAtom(selectedContentAtom);
+
+  const openShareModal = () => {
+    if (document) {
+      (document.getElementById('message-share-modal') as HTMLFormElement).showModal();
+      setSelectedContent(content);
+    }
+  };
+
+  return (
+    <div className="flex items-end justify-between gap-1">
+      <button className="chat-bubble text-left" onClick={openShareModal}>
+        {content}
+      </button>
+      <button
+        className="rounded-full p-1 transition-colors hover:bg-slate-200"
+        onClick={openShareModal}
+      >
+        <ShareIcon className="h-5 w-5 fill-slate-400" />
+      </button>
+    </div>
+  );
+};

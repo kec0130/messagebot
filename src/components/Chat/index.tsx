@@ -10,11 +10,11 @@ import {
 } from './constants';
 import { IMessage, PromptParams } from '@/types/message';
 import { generateStream } from '@/services/messages';
-import Header from './Header';
 import Message from './Message';
 import Input from './Input';
 import ControlButtons from './ControlButtons';
 import DateBadge from './DateBadge';
+import ShareModal from './ShareModal';
 
 const ChatRoom = () => {
   const [currentStep, setCurrentStep] = useState(0);
@@ -30,8 +30,8 @@ const ChatRoom = () => {
 
   const getNextMessage = (user: string, bot: string) => {
     const m: IMessage[] = [
-      { from: 'user', content: user },
-      { from: 'bot', content: bot, animation: 'fadeInDelay' },
+      { from: 'user', content: user, fadeIn: true },
+      { from: 'bot', content: bot, fadeIn: true },
     ];
     const newMessages = m.filter((message) => message.content);
     setMessages((prev) => [...prev, ...newMessages]);
@@ -125,7 +125,7 @@ const ChatRoom = () => {
 
   useEffect(() => {
     if (chunkId > 0) {
-      setMessages((prev) => [...prev, { from: 'bot', content: chunk, copyId: `${chunkId}` }]);
+      setMessages((prev) => [...prev, { from: 'bot', content: chunk, chunkId }]);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [chunkId]);
@@ -136,21 +136,14 @@ const ChatRoom = () => {
 
   return (
     <>
-      <Header title="메시지봇" leftUrl="/" rightUrl="/chat/tutorial" />
-      <DateBadge />
+      <DateBadge date={new Date()} />
 
-      {WELCOME_MESSAGES.map((message) => (
-        <Message key={message} from="bot" content={message} animation="fadeIn" />
+      {WELCOME_MESSAGES.map((message, index) => (
+        <Message key={message} from="bot" content={message} fadeIn delay={index / 10} />
       ))}
 
       {messages.map((message, index) => (
-        <Message
-          key={index}
-          from={message.from}
-          content={message.content}
-          copyId={message.copyId}
-          animation={message.animation}
-        />
+        <Message key={index} {...message} />
       ))}
 
       {currentStep === PARAM_KEYS.length && !isDone && <Message from="bot" content={chunk} />}
@@ -169,6 +162,8 @@ const ChatRoom = () => {
         handleSubmit={handleSubmit}
         disabled={isInputDisabled}
       />
+
+      <ShareModal />
     </>
   );
 };

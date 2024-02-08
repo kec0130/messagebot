@@ -1,6 +1,6 @@
 import { headers } from 'next/headers';
-import { createClient } from '@supabase/supabase-js';
-import { Database, Usage } from '@/types/supabase';
+import { supabase } from './supabase';
+import { Usage } from '@/types/supabase';
 
 import dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc';
@@ -10,8 +10,6 @@ dayjs.extend(utc);
 dayjs.extend(timezone);
 
 const MAX_REQUEST_COUNT = 30;
-
-const supabase = createClient<Database>(process.env.SUPABASE_URL!, process.env.SUPABASE_KEY!);
 
 const getIP = () => {
   const headerList = headers();
