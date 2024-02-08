@@ -16,14 +16,14 @@ const GalleryPage = () => {
   useEffect(() => {
     getMessages().then(({ data }) => {
       setMessages(data);
-      bottomRef.current?.scrollIntoView({ behavior: 'smooth' });
+      bottomRef.current?.scrollIntoView();
     });
   }, []);
 
   let lastDate = '';
 
   return (
-    <>
+    <div className="pb-10">
       <Header title="메시지 갤러리" />
       {messages.map((message) => {
         const messageDate = dayjs(message.created_at).format('YYYY-MM-DD');
@@ -41,7 +41,7 @@ const GalleryPage = () => {
         );
       })}
       <div ref={bottomRef} />
-    </>
+    </div>
   );
 };
 

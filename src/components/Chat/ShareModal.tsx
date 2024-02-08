@@ -4,17 +4,19 @@ import { useState } from 'react';
 import { useAtom } from 'jotai';
 
 import { selectedContentAtom } from './states';
-import { CheckIcon, CopyIcon, ErrorIcon, GalleryIcon, SuccessIcon } from '../../../public/icons';
 import { postMessage } from '@/services/gallery';
+import { CheckIcon, CopyIcon, ErrorIcon, GalleryIcon, SuccessIcon } from '../../../public/icons';
 
 type CurrentStep = 'init' | 'share' | 'result';
 type PostStatus = 'idle' | 'loading' | 'success' | 'error';
 
 const ShareModal = () => {
-  const [selectedContent] = useAtom(selectedContentAtom);
+  const [selectedContent, setSelectedContent] = useAtom(selectedContentAtom);
   const [copied, setCopied] = useState(false);
   const [currentStep, setCurrentStep] = useState<CurrentStep>('init');
   const [postStatus, setPostStatus] = useState<PostStatus>('idle');
+  const [blurChecked, setBlurChecked] = useState(false);
+  const [name, setName] = useState('');
 
   const handleCopyClick = () => {
     navigator.clipboard.writeText(selectedContent);
@@ -22,9 +24,22 @@ const ShareModal = () => {
     setTimeout(() => setCopied(false), 2000);
   };
 
+  const removeName = (content: string, name: string) => {
+    const regex = new RegExp(name, 'g');
+    const replacement = 'O'.repeat(name.length);
+    return content.replace(regex, replacement);
+  };
+
   const handleShareClick = () => {
+    if (!selectedContent.includes(name)) {
+      alert('Word not found!');
+      return;
+    }
+
     setPostStatus('loading');
-    postMessage(selectedContent)
+    const replacedContent = blurChecked ? removeName(selectedContent, name) : selectedContent;
+
+    postMessage(replacedContent)
       .then((res) => {
         if (res.error) setPostStatus('error');
         else setPostStatus('success');
@@ -37,6 +52,8 @@ const ShareModal = () => {
     setCopied(false);
     setCurrentStep('init');
     setPostStatus('idle');
+    setSelectedContent(selectedContent);
+    setName('');
   };
 
   return (
@@ -65,26 +82,38 @@ const ShareModal = () => {
 
         {currentStep === 'share' && (
           <>
-            <p className="mt-2 text-sm text-slate-500">
+            <p className="mb-4 mt-2 text-sm text-slate-500">
               혼자 보기 아까운 주옥같은 메시지를 갤러리에 공유해보세요. 다른 사람들도 함께 볼 수
               있어요.
             </p>
             <textarea
-              className="mb-3 mt-4 h-32 w-full rounded-md border p-2"
+              className="textarea textarea-bordered w-full resize-none leading-5"
               value={selectedContent}
+              rows={4}
               readOnly
             />
-            {/* <div className="form-control">
-              <label className="label w-fit cursor-pointer justify-start gap-1.5">
+            <div className="form-control my-2 flex flex-row items-center gap-1.5">
+              <input
+                id="name-blur"
+                type="checkbox"
+                className="checkbox checkbox-sm"
+                checked={blurChecked}
+                onChange={() => setBlurChecked((prev) => !prev)}
+              />
+              {blurChecked ? (
                 <input
-                  type="checkbox"
-                  className="checkbox checkbox-sm"
-                  checked={blurChecked}
-                  onChange={() => setBlurChecked((prev) => !prev)}
+                  type="text"
+                  className="input input-bordered input-sm my-0.5"
+                  placeholder="가릴 이름을 적어주세요"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
                 />
-                <span className="label-text">이름 가리기</span>
-              </label>
-            </div> */}
+              ) : (
+                <label htmlFor="name-blur" className="label cursor-pointer">
+                  <span className="label-text">이름 가리기</span>
+                </label>
+              )}
+            </div>
             <div className="flex justify-end gap-3">
               <button className="btn btn-ghost" onClick={() => setCurrentStep('init')}>
                 취소
