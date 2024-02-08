@@ -136,7 +136,7 @@ const ChatRoom = () => {
 
   return (
     <>
-      <DateBadge />
+      <DateBadge date={new Date()} />
 
       {WELCOME_MESSAGES.map((message, index) => (
         <Message key={message} from="bot" content={message} fadeIn delay={index / 10} />

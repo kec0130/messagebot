@@ -66,7 +66,8 @@ const ShareModal = () => {
         {currentStep === 'share' && (
           <>
             <p className="mt-2 text-sm text-slate-500">
-              나만 보기 아까운 멋진 메시지를 갤러리에 공유해보세요! 다른 사람들도 함께 볼 수 있어요.
+              혼자 보기 아까운 주옥같은 메시지를 갤러리에 공유해보세요. 다른 사람들도 함께 볼 수
+              있어요.
             </p>
             <textarea
               className="mb-3 mt-4 h-32 w-full rounded-md border p-2"
