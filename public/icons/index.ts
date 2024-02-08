@@ -7,6 +7,7 @@ import ArrowBackIcon from './arrow_back.svg';
 import HelpIcon from './help.svg';
 import CloseIcon from './close.svg';
 import GalleryIcon from './gallery.svg';
+import ShareIcon from './share.svg';
 
 export {
   SendIcon,
@@ -18,4 +19,5 @@ export {
   HelpIcon,
   CloseIcon,
   GalleryIcon,
+  ShareIcon,
 };

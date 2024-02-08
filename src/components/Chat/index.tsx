@@ -14,6 +14,7 @@ import Message from './Message';
 import Input from './Input';
 import ControlButtons from './ControlButtons';
 import DateBadge from './DateBadge';
+import ShareModal from './ShareModal';
 
 const ChatRoom = () => {
   const [currentStep, setCurrentStep] = useState(0);
@@ -168,6 +169,8 @@ const ChatRoom = () => {
         handleSubmit={handleSubmit}
         disabled={isInputDisabled}
       />
+
+      <ShareModal />
     </>
   );
 };

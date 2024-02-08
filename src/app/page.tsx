@@ -29,16 +29,10 @@ export default function Home() {
         </p>
 
         <div className="flex w-[200px] flex-col gap-4 md:gap-5">
-          <Link
-            href="/chat"
-            className="inline-flex h-[50px] items-center justify-center rounded-lg bg-slate-800 font-medium text-white transition-colors hover:bg-slate-700"
-          >
+          <Link href="/chat" className="btn btn-neutral">
             메시지 만들기
           </Link>
-          <Link
-            href="/chat/gallery"
-            className="inline-flex h-[50px] items-center justify-center rounded-lg border-2 border-slate-800 font-medium text-slate-800 transition-colors hover:bg-slate-100"
-          >
+          <Link href="/chat/gallery" className="btn btn-outline border-2 border-slate-800">
             메시지 구경하기
           </Link>
           <BuyMeACoffeeButton />

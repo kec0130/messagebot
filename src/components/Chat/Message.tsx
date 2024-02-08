@@ -2,9 +2,9 @@ import clsx from 'clsx';
 import Image from 'next/image';
 import { MouseEvent, useState } from 'react';
 import { IMessage } from '@/types/message';
-import { CheckIcon, CopyIcon } from '../../../public/icons';
+import { CheckIcon, CopyIcon, ShareIcon } from '../../../public/icons';
 
-const CopyableMessage = ({ content, copyId }: Pick<IMessage, 'content' | 'copyId'>) => {
+const GeneratedMessage = ({ content, copyId }: Pick<IMessage, 'content' | 'copyId'>) => {
   const [copiedId, setCopiedId] = useState('');
 
   const handleCopyClick = (e: MouseEvent<HTMLButtonElement>) => {
@@ -14,19 +14,36 @@ const CopyableMessage = ({ content, copyId }: Pick<IMessage, 'content' | 'copyId
     setTimeout(() => setCopiedId(''), 2000);
   };
 
+  const openShareModal = () => {
+    if (document) {
+      (document.getElementById('message-share-modal') as HTMLFormElement).showModal();
+    }
+  };
+
   return (
-    <>
-      <button id={copyId} value={content} onClick={handleCopyClick} className="text-left">
-        <div className="chat-bubble">{content}</div>
-        <div className="absolute bottom-4 right-0">
-          {copyId === copiedId ? (
+    <div className="flex items-end justify-between gap-1">
+      <button
+        className="chat-bubble text-left"
+        id={copyId}
+        value={content}
+        onClick={openShareModal}
+      >
+        {content}
+      </button>
+      <button
+        className="rounded-full p-1 transition-colors hover:bg-slate-200"
+        id={copyId}
+        value={content}
+        onClick={openShareModal}
+      >
+        <ShareIcon className="h-5 w-5 fill-slate-400" />
+        {/* {copyId === copiedId ? (
             <CheckIcon className="fill-sky-500" />
           ) : (
             <CopyIcon className="h-5 w-5 fill-slate-400" />
-          )}
-        </div>
+          )} */}
       </button>
-    </>
+    </div>
   );
 };
 
@@ -48,7 +65,7 @@ const Message = ({ from, content, copyId, fadeIn, delay }: IMessage) => {
           </div>
           <div className="chat-header">메시지봇</div>
           {copyId ? (
-            <CopyableMessage content={content} copyId={copyId} />
+            <GeneratedMessage content={content} copyId={copyId} />
           ) : (
             <div className="chat-bubble">{content}</div>
           )}
