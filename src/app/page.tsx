@@ -1,7 +1,9 @@
 import Link from 'next/link';
 import Image from 'next/image';
+
 import BuyMeACoffeeButton from '@/components/BuyMeACoffee/Button';
 import Footer from '@/components/Common/Footer';
+import { AddMessageIcon, GalleryIcon } from '../../public/icons';
 
 export default function Home() {
   return (
@@ -30,9 +32,11 @@ export default function Home() {
 
         <div className="flex w-[200px] flex-col gap-4 md:gap-5">
           <Link href="/chat" className="btn btn-neutral">
+            <AddMessageIcon className="h-5 w-5 fill-current" />
             메시지 만들기
           </Link>
-          <Link href="/chat/gallery" className="btn btn-outline border-2 border-slate-800">
+          <Link href="/chat/gallery" className="btn btn-outline border-2">
+            <GalleryIcon className="h-5 w-5 fill-current" />
             메시지 구경하기
           </Link>
           <BuyMeACoffeeButton />

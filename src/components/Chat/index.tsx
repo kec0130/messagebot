@@ -125,7 +125,7 @@ const ChatRoom = () => {
 
   useEffect(() => {
     if (chunkId > 0) {
-      setMessages((prev) => [...prev, { from: 'bot', content: chunk, copyId: `${chunkId}` }]);
+      setMessages((prev) => [...prev, { from: 'bot', content: chunk, chunkId }]);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [chunkId]);
@@ -143,14 +143,7 @@ const ChatRoom = () => {
       ))}
 
       {messages.map((message, index) => (
-        <Message
-          key={index}
-          from={message.from}
-          content={message.content}
-          copyId={message.copyId}
-          fadeIn={message.fadeIn}
-          delay={message.delay}
-        />
+        <Message key={index} {...message} />
       ))}
 
       {currentStep === PARAM_KEYS.length && !isDone && <Message from="bot" content={chunk} />}

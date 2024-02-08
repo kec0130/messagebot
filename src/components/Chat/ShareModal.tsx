@@ -1,6 +1,20 @@
-import { CloseIcon, CopyIcon, GalleryIcon } from '../../../public/icons';
+import clsx from 'clsx';
+import { useState } from 'react';
+import { useAtom } from 'jotai';
+
+import { selectedContentAtom } from './states';
+import { CheckIcon, CloseIcon, CopyIcon, GalleryIcon } from '../../../public/icons';
 
 const ShareModal = () => {
+  const [selectedContent] = useAtom(selectedContentAtom);
+  const [copied, setCopied] = useState(false);
+
+  const handleCopyClick = () => {
+    navigator.clipboard.writeText(selectedContent);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
+
   return (
     <dialog id="message-share-modal" className="modal">
       <div className="modal-box">
@@ -12,10 +26,18 @@ const ShareModal = () => {
             </button>
           </form>
         </div>
+
         <div className="my-4 flex flex-col justify-center gap-3">
-          <button className="btn btn-neutral">
-            <CopyIcon className="h-5 w-5 fill-current" />
-            텍스트 복사하기
+          <button
+            className={clsx('btn transition-colors', copied ? 'btn-info' : 'btn-neutral')}
+            onClick={handleCopyClick}
+          >
+            {copied ? (
+              <CheckIcon className="h-5 w-5 fill-current" />
+            ) : (
+              <CopyIcon className="h-5 w-5 fill-current" />
+            )}
+            {copied ? '복사 완료' : '텍스트 복사하기'}
           </button>
           <button className="btn btn-neutral">
             <GalleryIcon className="h-5 w-5 fill-current" />
@@ -23,8 +45,9 @@ const ShareModal = () => {
           </button>
         </div>
       </div>
+
       <form method="dialog" className="modal-backdrop">
-        <button>close</button>
+        <button aria-hidden>close</button>
       </form>
     </dialog>
   );
