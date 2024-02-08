@@ -8,6 +8,8 @@ import HelpIcon from './help.svg';
 import CloseIcon from './close.svg';
 import GalleryIcon from './gallery.svg';
 import ShareIcon from './share.svg';
+import SuccessIcon from './success.svg';
+import ErrorIcon from './error.svg';
 
 export {
   SendIcon,
@@ -20,4 +22,6 @@ export {
   CloseIcon,
   GalleryIcon,
   ShareIcon,
+  SuccessIcon,
+  ErrorIcon,
 };

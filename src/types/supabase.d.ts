@@ -24,6 +24,24 @@ export interface Database {
         };
         Relationships: [];
       };
+      message_gallery: {
+        Row: {
+          content: string;
+          created_at: string;
+          id: number;
+        };
+        Insert: {
+          content: string;
+          created_at: string;
+          id?: number;
+        };
+        Update: {
+          content?: string;
+          created_at?: string;
+          id?: number;
+        };
+        Relationships: [];
+      };
     };
     Views: {
       [_ in never]: never;
@@ -42,3 +60,4 @@ export interface Database {
 
 type Tables<T extends keyof Database['public']['Tables']> = Database['public']['Tables'][T]['Row'];
 export type Usage = Tables<'usage_restriction'>;
+export type MessageGallery = Tables<'message_gallery'>;
