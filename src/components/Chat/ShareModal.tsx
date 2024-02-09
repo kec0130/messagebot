@@ -15,7 +15,7 @@ const ShareModal = () => {
   const [copied, setCopied] = useState(false);
   const [currentStep, setCurrentStep] = useState<CurrentStep>('init');
   const [postStatus, setPostStatus] = useState<PostStatus>('idle');
-  const [blurChecked, setBlurChecked] = useState(false);
+  const [nameRemoverChecked, setNameRemoverChecked] = useState(false);
   const [name, setName] = useState('');
 
   const handleCopyClick = () => {
@@ -32,12 +32,14 @@ const ShareModal = () => {
 
   const handleShareClick = () => {
     if (!selectedContent.includes(name)) {
-      alert('Word not found!');
+      alert('메시지에서 이름을 찾을 수 없습니다.');
       return;
     }
 
     setPostStatus('loading');
-    const replacedContent = blurChecked ? removeName(selectedContent, name) : selectedContent;
+    const replacedContent = nameRemoverChecked
+      ? removeName(selectedContent, name)
+      : selectedContent;
 
     postMessage(replacedContent)
       .then((res) => {
@@ -89,7 +91,7 @@ const ShareModal = () => {
             <textarea
               className="textarea textarea-bordered w-full resize-none leading-5"
               value={selectedContent}
-              rows={4}
+              rows={5}
               readOnly
             />
             <div className="form-control my-2 flex flex-row items-center gap-1.5">
@@ -97,10 +99,10 @@ const ShareModal = () => {
                 id="name-blur"
                 type="checkbox"
                 className="checkbox checkbox-sm"
-                checked={blurChecked}
-                onChange={() => setBlurChecked((prev) => !prev)}
+                checked={nameRemoverChecked}
+                onChange={() => setNameRemoverChecked((prev) => !prev)}
               />
-              {blurChecked ? (
+              {nameRemoverChecked ? (
                 <input
                   type="text"
                   className="input input-bordered input-sm my-0.5"

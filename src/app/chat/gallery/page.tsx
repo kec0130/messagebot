@@ -14,10 +14,13 @@ const GalleryPage = () => {
   const bottomRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    getMessages().then(({ data }) => {
-      setMessages(data);
-      bottomRef.current?.scrollIntoView();
-    });
+    getMessages()
+      .then(({ data }) => {
+        setMessages(data);
+      })
+      .finally(() => {
+        bottomRef.current?.scrollIntoView();
+      });
   }, []);
 
   let lastDate = '';
