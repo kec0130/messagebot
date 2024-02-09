@@ -32,7 +32,7 @@ const ShareModal = () => {
 
   const handleShareClick = () => {
     if (!selectedContent.includes(name)) {
-      alert('메시지에서 이름을 찾을 수 없습니다.');
+      alert('메시지에서 해당 이름을 찾을 수 없습니다.');
       return;
     }
 
@@ -85,8 +85,8 @@ const ShareModal = () => {
         {currentStep === 'share' && (
           <>
             <p className="mb-4 mt-2 text-sm text-slate-500">
-              혼자 보기 아까운 주옥같은 메시지를 갤러리에 공유해보세요. 다른 사람들도 함께 볼 수
-              있어요.
+              혼자 보기 아까운 감동적인 메시지를 갤러리에 공유해보세요. 메시지가 공개되어 다른
+              사람들과 함께 볼 수 있어요.
             </p>
             <textarea
               className="textarea textarea-bordered w-full resize-none leading-5"
