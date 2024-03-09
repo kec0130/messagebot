@@ -27,7 +27,7 @@ const GalleryPage = () => {
 
   return (
     <div className="pb-10">
-      <Header title="메시지 갤러리" />
+      <Header title="메시지 갤러리" backUrl="/chat" />
       {messages.map((message) => {
         const messageDate = dayjs(message.created_at).format('YYYY-MM-DD');
         let dateDisplay = null;
