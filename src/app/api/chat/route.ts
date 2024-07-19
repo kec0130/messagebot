@@ -23,7 +23,7 @@ export async function POST(req: Request) {
   6. ${basePrompts[6]}`;
 
     const response = await openai.chat.completions.create({
-      model: 'gpt-4-1106-preview',
+      model: 'gpt-4o-mini',
       messages: [
         { role: 'system', content: process.env.SYSTEM_PROMPT! },
         { role: 'user', content: prompt },
