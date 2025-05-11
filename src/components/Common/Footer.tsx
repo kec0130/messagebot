@@ -5,7 +5,7 @@ const Footer = () => {
     <footer className="footer footer-center bg-base-200 p-10 text-base-content">
       <aside>
         <Image src="/images/text-logo.png" alt="logo" width={70} height={20} className="mb-1" />
-        <p>&copy; {new Date().getFullYear()} ChaeChae. All Rights Reserved.</p>
+        <p>&copy; 2023. ChaeChae Life. All rights reserved.</p>
       </aside>
       <nav>
         <header className="footer-title mb-0 font-sans">About Us</header>
